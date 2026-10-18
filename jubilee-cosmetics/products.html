@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-t-title="products">สินค้าทั้งหมด | Jubilee Cosmetics</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/config.js" defer></script>
+    <script src="js/products.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/products-page.js" defer></script>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-top-left">
+                    <span class="promo-banner" data-t="promoBanner">🎉 โปรโมชันพิเศษ ลดสูงสุด 40% สำหรับคอลเลกชันใหม่</span>
+                </div>
+                <div class="header-top-right">
+                    <div class="language-switch">
+                        <button class="lang-btn active" data-lang="th" onclick="setLanguage('th')">TH</button>
+                        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-main">
+                <a href="index.html" class="logo">
+                    <svg viewBox="0 0 200 60" width="160" height="auto" aria-label="Jubilee Cosmetics Logo">
+                        <text x="50%" y="48%" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="30" font-weight="bold" fill="#8a6d5b">Jubilee</text>
+                        <text x="50%" y="82%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="10" letter-spacing="4" fill="#8a6d5b">COSMETICS</text>
+                    </svg>
+                </a>
+
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link" data-t="home">หน้าแรก</a></li>
+                        <li><a href="products.html" class="nav-link active" data-t="products">สินค้าทั้งหมด</a></li>
+                        <li class="nav-dropdown">
+                            <a href="#" class="nav-link" data-t="categories">หมวดหมู่ ▾</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="products.html?category=earrings" data-t="earrings">ต่างหู</a></li>
+                                <li><a href="products.html?category=necklaces" data-t="necklaces">สร้อยคอ</a></li>
+                                <li><a href="products.html?category=bracelets" data-t="bracelets">กำไลข้อมือ</a></li>
+                                <li><a href="products.html?category=rings" data-t="rings">แหวน</a></li>
+                                <li><a href="products.html?category=makeup" data-t="makeup">เครื่องสำอาง</a></li>
+                                <li><a href="products.html?category=skincare" data-t="skincare">สกินแคร์</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="pages/about.html" class="nav-link" data-t="about">เกี่ยวกับเรา</a></li>
+                        <li><a href="pages/contact.html" class="nav-link" data-t="contact">ติดต่อเรา</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="icon-btn search-btn" data-t="search">🔍</button>
+                    <button class="icon-btn account-btn" data-t="account">👤</button>
+                    <a href="cart.html" class="icon-btn cart-btn position-relative" data-t="cart">
+                        🛒
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>
+                    <button class="mobile-menu-btn" aria-label="เปิดเมนู">☰</button>
+                </div>
+            </div>
+
+            <div class="search-overlay" id="searchOverlay">
+                <div class="container">
+                    <button class="close-search" data-t="close">✕</button>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="ค้นหาสินค้า...">
+                        <button id="searchBtn">ค้นหา</button>
+                    </div>
+                    <div class="search-suggestions" id="searchSuggestions"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h1 class="section-title" data-t="allProducts" style="text-align:left;">สินค้าทั้งหมด</h1>
+                    <p id="categoryDesc" style="color:var(--text-light);"></p>
+                </div>
+                <div class="filter-controls" style="display:flex; gap:10px; align-items:center;">
+                    <select id="sortSelect" style="padding:8px 12px; border:1px solid var(--border-color); border-radius:var(--radius); background:#fff;">
+                        <option value="featured" data-t="featured">แนะนำ</option>
+                        <option value="price-asc" data-t="priceLowHigh">ราคาต่ำไปสูง</option>
+                        <option value="price-desc" data-t="priceHighLow">ราคาสูงไปต่ำ</option>
+                        <option value="name" data-t="nameAZ">ชื่อสินค้า (อักษร A-Z)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="product-filters" style="display:flex; gap:15px; margin-bottom:30px; flex-wrap:wrap;">
+                <button class="filter-btn active" data-category="all" data-t="allProducts">ทั้งหมด</button>
+                <button class="filter-btn" data-category="earrings" data-t="earrings">ต่างหู</button>
+                <button class="filter-btn" data-category="necklaces" data-t="necklaces">สร้อยคอ</button>
+                <button class="filter-btn" data-category="bracelets" data-t="bracelets">กำไลข้อมือ</button>
+                <button class="filter-btn" data-category="rings" data-t="rings">แหวน</button>
+                <button class="filter-btn" data-category="makeup" data-t="makeup">เครื่องสำอาง</button>
+                <button class="filter-btn" data-category="skincare" data-t="skincare">สกินแคร์</button>
+            </div>
+
+            <div class="product-grid" id="productGrid"></div>
+
+            <div id="noResults" style="text-align:center; padding:40px; display:none;">
+                <p data-t="noResults">ไม่พบสินค้าที่คุณค้นหา</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-drawer-header">
+            <h3 data-t="cart">ตะกร้าสินค้า</h3>
+            <button class="close-cart" data-t="close">✕</button>
+        </div>
+        <div class="cart-drawer-body" id="cartItems">
+            <div class="empty-cart">
+                <p data-t="emptyCart">ยังไม่มีสินค้าในตะกร้า</p>
+            </div>
+        </div>
+        <div class="cart-drawer-footer" id="cartFooter"></div>
+    </div>
+
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="toast" id="toast"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="index.html" class="footer-logo">Jubilee Cosmetics</a>
+                    <p class="footer-desc" data-t="footerDesc">ร้านเครื่องสำอางและเครื่องประดับพรีเมียม คัดสรรสินค้าคุณภาพสำหรับคุณ</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📷</a>
+                        <a href="#" aria-label="LINE">💚</a>
+                        <a href="#" aria-label="TikTok">🎵</a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4 data-t="shop">ร้านค้า</h4>
+                    <ul>
+                        <li><a href="products.html" data-t="allProducts">สินค้าทั้งหมด</a></li>
+                        <li><a href="#">คอลเลกชันใหม่</a></li>
+                        <li><a href="#">สินค้าลดราคา</a></li>
+                        <li><a href="#">ของขวัญ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-t="support">บริการลูกค้า</h4>
+                    <ul>
+                        <li><a href="pages/contact.html" data-t="contact">ติดต่อเรา</a></li>
+                        <li><a href="#">คำถามที่พบบ่อย</a></li>
+                        <li><a href="#">นโยบายคืนสินค้า</a></li>
+                        <li><a href="#">ติดตามพัสดุ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4 data-t="about">เกี่ยวกับเรา</h4>
+                    <ul>
+                        <li><a href="pages/about.html" data-t="about">เกี่ยวกับ Jubilee</a></li>
+                        <li><a href="#">งานกับเรา</a></li>
+                        <li><a href="#">นโยบายความเป็นส่วนตัว</a></li>
+                        <li><a href="#">ข้อกำหนดการใช้บริการ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-t="copyright">© 2026 Jubilee Cosmetics. All rights reserved.</p>
+                <div class="payment-methods">
+                    <span>💳</span> <span>🏦</span> <span>📱</span> <span>💵</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

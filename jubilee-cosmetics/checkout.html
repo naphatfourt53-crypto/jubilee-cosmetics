@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-t-title="checkout">ชำระเงิน | Jubilee Cosmetics</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/config.js" defer></script>
+    <script src="js/products.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/checkout.js" defer></script>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-top-left">
+                    <span class="promo-banner">🔒 การชำระเงินปลอดภัยเข้ารหัส SSL</span>
+                </div>
+                <div class="header-top-right">
+                    <div class="language-switch">
+                        <button class="lang-btn active" data-lang="th" onclick="setLanguage('th')">TH</button>
+                        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-main">
+                <a href="index.html" class="logo">
+                    <svg viewBox="0 0 200 60" width="160" height="auto" aria-label="Jubilee Cosmetics Logo">
+                        <text x="50%" y="48%" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="30" font-weight="bold" fill="#8a6d5b">Jubilee</text>
+                        <text x="50%" y="82%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="10" letter-spacing="4" fill="#8a6d5b">COSMETICS</text>
+                    </svg>
+                </a>
+
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link" data-t="home">หน้าแรก</a></li>
+                        <li><a href="products.html" class="nav-link" data-t="products">สินค้าทั้งหมด</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="icon-btn search-btn" data-t="search">🔍</button>
+                    <a href="cart.html" class="icon-btn cart-btn position-relative" data-t="cart">
+                        🛒
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="search-overlay" id="searchOverlay">
+                <div class="container">
+                    <button class="close-search" data-t="close">✕</button>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="ค้นหาสินค้า...">
+                        <button id="searchBtn">ค้นหา</button>
+                    </div>
+                    <div class="search-suggestions" id="searchSuggestions"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section-padding">
+        <div class="container">
+            <div class="page-header">
+                <h1 data-t="checkout">ชำระเงิน</h1>
+                <p style="color:var(--text-light);">กรอกข้อมูลเพื่อยืนยันคำสั่งซื้อของคุณ</p>
+            </div>
+
+            <div class="checkout-layout" style="display:grid; grid-template-columns: 1fr 380px; gap:40px;">
+                <!-- Left: Forms -->
+                <div class="checkout-forms">
+                    <div class="checkout-step active" id="step-info">
+                        <div class="step-header" style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+                            <div style="width:32px; height:32px; background:var(--primary-color); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:0.9rem;">1</div>
+                            <h3 style="font-size:1.25rem; color:var(--text-main);" data-t="shippingInfo">ข้อมูลการจัดส่ง</h3>
+                        </div>
+                        
+                        <form id="shipping-form" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:32px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:20px;">
+                            <div class="form-row" style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                                <div class="form-group">
+                                    <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;" data-t="fullName">ชื่อ-นามสกุล</label>
+                                    <input type="text" id="ship-name" required placeholder="นางสมหญิง รักสวย" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                                </div>
+                                <div class="form-group">
+                                    <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;" data-t="email">อีเมล</label>
+                                    <input type="email" id="ship-email" required placeholder="you@example.com" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;" data-t="phone">เบอร์โทรศัพท์</label>
+                                <input type="tel" id="ship-phone" required placeholder="08-xxxx-xxxx" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                            </div>
+                            <div class="form-group">
+                                <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;" data-t="address">ที่อยู่จัดส่ง</label>
+                                <textarea id="ship-address" rows="3" required placeholder="บ้านเลขที่ ถนน ตำบล อำเภอ จังหวัด รหัสไปรษณีย์" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-full" onclick="goToStep('payment')" style="font-size:1rem;">ถัดไป: เลือกวิธีชำระเงิน →</button>
+                        </form>
+                    </div>
+
+                    <div class="checkout-step" id="step-payment" style="display:none;">
+                        <div class="step-header" style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+                            <div style="width:32px; height:32px; background:var(--primary-color); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:0.9rem;">2</div>
+                            <h3 style="font-size:1.25rem; color:var(--text-main);" data-t="paymentMethod">วิธีการชำระเงิน</h3>
+                        </div>
+                        
+                        <div class="payment-methods-list" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:32px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:16px;">
+                            <div class="payment-option selected" id="pay-promptpay" onclick="selectPayment('promptpay')" style="display:flex; align-items:center; gap:16px; padding:20px; border:2px solid var(--primary-color); border-radius:14px; background:#fff; cursor:pointer; transition:var(--transition);">
+                                <div style="width:44px; height:44px; background:#13873c; color:#fff; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0;">🏦</div>
+                                <div>
+                                    <div style="font-weight:600; color:var(--text-main);">PromptPay</div>
+                                    <div style="font-size:0.85rem; color:var(--text-light);">โอนเงินผ่านพร้อมเพย์</div>
+                                </div>
+                                <div class="radio-check" style="margin-left:auto; width:22px; height:22px; border:2px solid var(--primary-color); border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                                    <div style="width:10px; height:10px; background:var(--primary-color); border-radius:50%;"></div>
+                                </div>
+                            </div>
+                            <div class="payment-option" id="pay-card" onclick="selectPayment('card')" style="display:flex; align-items:center; gap:16px; padding:20px; border:2px solid transparent; border-radius:14px; background:#fff; cursor:pointer; transition:var(--transition);">
+                                <div style="width:44px; height:44px; background:#1a1a1a; color:#fff; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0;">💳</div>
+                                <div>
+                                    <div style="font-weight:600; color:var(--text-main);">บัตรเครดิต / เดบิต</div>
+                                    <div style="font-size:0.85rem; color:var(--text-light);">Visa, Mastercard, JCB</div>
+                                </div>
+                                <div class="radio-check" style="margin-left:auto; width:22px; height:22px; border:2px solid var(--border-color); border-radius:50%;"></div>
+                            </div>
+                            <div class="payment-option" id="pay-cod" onclick="selectPayment('cod')" style="display:flex; align-items:center; gap:16px; padding:20px; border:2px solid transparent; border-radius:14px; background:#fff; cursor:pointer; transition:var(--transition);">
+                                <div style="width:44px; height:44px; background:#fbbf24; color:#fff; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0;">💵</div>
+                                <div>
+                                    <div style="font-weight:600; color:var(--text-main);">เก็บเงินปลายทาง (COD)</div>
+                                    <div style="font-size:0.85rem; color:var(--text-light);">จ่ายเมื่อรับสินค้า (ค่าบริการ 50 บาท)</div>
+                                </div>
+                                <div class="radio-check" style="margin-left:auto; width:22px; height:22px; border:2px solid var(--border-color); border-radius:50%;"></div>
+                            </div>
+                        </div>
+
+                        <div id="card-fields" style="display:none; margin-top:20px; padding:24px; background:var(--bg-light); border-radius:14px; border:1px solid var(--border-color);">
+                            <div class="form-group">
+                                <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">ชื่อบนบัตร</label>
+                                <input type="text" placeholder="JOHN DOE" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                            </div>
+                            <div class="form-row" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px;">
+                                <div class="form-group">
+                                    <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">หมายเลขบัตร</label>
+                                    <input type="text" placeholder="1234 5678 9012 3456" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                                </div>
+                                <div class="form-group">
+                                    <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">วันหมดอายุ</label>
+                                    <input type="text" placeholder="MM/YY" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                                </div>
+                                <div class="form-group">
+                                    <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">CVV</label>
+                                    <input type="text" placeholder="123" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="btn btn-primary btn-full" onclick="goToStep('review')" style="font-size:1rem;">ถัดไป: ตรวจสอบรายการ →</button>
+                    </div>
+
+                    <div class="checkout-step" id="step-review" style="display:none;">
+                        <div class="step-header" style="display:flex; align-items:center; gap:12px; margin-bottom:24px;">
+                            <div style="width:32px; height:32px; background:var(--primary-color); color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:0.9rem;">3</div>
+                            <h3 style="font-size:1.25rem; color:var(--text-main);" data-t="orderSummary">สรุปรายการสั่งซื้อ</h3>
+                        </div>
+                        
+                        <div class="review-card" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:32px; box-shadow:var(--shadow);">
+                            <div id="review-items" style="margin-bottom:24px;">
+                                <!-- Order items injected -->
+                            </div>
+                            <div style="border-top:2px solid var(--border-color); padding-top:20px; margin-bottom:24px;">
+                                <div class="cart-summary-row" style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                                    <span data-t="subtotal">ยอดรวมสินค้า:</span>
+                                    <span id="review-subtotal">฿ 0</span>
+                                </div>
+                                <div class="cart-summary-row" style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                                    <span style="color:var(--text-light);">ค่าจัดส่ง:</span>
+                                    <span id="review-shipping">คำนวณภายหลัง</span>
+                                </div>
+                                <div class="cart-total" style="margin-top:12px;">
+                                    <span style="font-size:1.1rem;">รวมทั้งหมด:</span>
+                                    <span id="review-total" style="font-size:1.5rem; color:var(--primary-color);">฿ 0</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group" style="margin-bottom:24px;">
+                                <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">หมายเหตุเพิ่มเติม</label>
+                                <textarea id="review-notes" rows="3" placeholder="เช่น ขอเรียกสินค้าก่อนส่ง, ขอใบกำกับภาษีเต็มรูปแบบ" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
+                            </div>
+
+                            <div class="agreement" style="display:flex; gap:10px; align-items:flex-start; margin-bottom:24px;">
+                                <input type="checkbox" id="agree-terms" required style="width:18px; height:18px; cursor:pointer; margin-top:2px;">
+                                <label style="margin:0; font-size:0.9rem; color:var(--text-light); line-height:1.5;">
+                                    ยืนยันว่าข้อมูลถูกต้องและยอมรับ <a href="#" style="color:var(--primary-color); text-decoration:underline;">ข้อกำหนดการใช้บริการ</a> และ <a href="#" style="color:var(--primary-color); text-decoration:underline;">นโยบายความเป็นส่วนตัว</a>
+                                </label>
+                            </div>
+
+                            <button type="button" class="btn btn-primary btn-full" onclick="placeOrder()" style="font-size:1.1rem; padding:18px;" data-t="placeOrder">ยืนยันการสั่งซื้อ</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Order Summary -->
+                <div class="checkout-sidebar" style="position:sticky; top:20px;">
+                    <div class="sidebar-card" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow);">
+                        <h3 style="font-size:1.25rem; margin-bottom:20px; color:var(--text-main);" data-t="orderSummary">สรุปรายการสั่งซื้อ</h3>
+                        
+                        <div id="sidebar-items" style="margin-bottom:20px; max-height:300px; overflow-y:auto;">
+                            <!-- Items injected -->
+                        </div>
+                        
+                        <div style="border-top:2px solid var(--border-color); padding-top:16px; margin-bottom:16px;">
+                            <div class="cart-summary-row" style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="color:var(--text-light);">รวมสินค้า:</span>
+                                <span id="sidebar-subtotal">฿ 0</span>
+                            </div>
+                            <div class="cart-summary-row" style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                                <span style="color:var(--text-light);">จัดส่ง:</span>
+                                <span id="sidebar-shipping">คำนวณภายหลัง</span>
+                            </div>
+                        </div>
+                        
+                        <div class="cart-total" style="margin-bottom:20px;">
+                            <span style="font-size:1.1rem; color:var(--text-main);">รวมทั้งหมด:</span>
+                            <span id="sidebar-total" style="font-size:1.5rem; color:var(--primary-color);">฿ 0</span>
+                        </div>
+                        
+                        <div id="sidebar-free-ship" style="color:var(--success-color); font-size:0.9rem; margin-bottom:16px; font-weight:500; display:none;">✓ จัดส่งฟรี!</div>
+                        
+                        <div style="font-size:0.85rem; color:var(--text-light); line-height:1.5; margin-bottom:20px;">
+                            🚚 จัดส่งภายใน 3-7 วันทำการ<br>
+                            🔒 ชำระเงินผ่านระบบที่ปลอดภัย
+                        </div>
+                        
+                        <button class="btn btn-primary btn-full" onclick="goToStep('payment')" style="font-size:1rem;">ดำเนินการชำระเงิน</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Success Modal -->
+    <div class="search-overlay" id="successOverlay" style="background:rgba(93, 74, 62, 0.85);">
+        <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; text-align:center; padding:0 24px;">
+            <div style="width:96px; height:96px; background:rgba(122, 158, 127, 0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:3rem; margin-bottom:24px;">✅</div>
+            <h2 style="font-size:2rem; color:#fff; margin-bottom:12px;" data-t="orderSuccess">สั่งซื้อสำเร็จ!</h2>
+            <p style="color:rgba(255,255,255,0.9); margin-bottom:24px;" id="success-message">ขอบคุณที่สั่งซื้อจาก Jubilee Cosmetics</p>
+            <div style="background:rgba(255,255,255,0.1); border-radius:16px; padding:20px; margin-bottom:28px; border:1px solid rgba(255,255,255,0.2);">
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span style="color:rgba(255,255,255,0.8);">หมายเลขคำสั่งซื้อ:</span>
+                    <span style="color:#fff; font-weight:600;" id="success-order-number">--</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span style="color:rgba(255,255,255,0.8);">ยอดรวม:</span>
+                    <span style="color:#fff; font-weight:600;" id="success-order-total">--</span>
+                </div>
+                <div style="display:flex; justify-content:space-between;">
+                    <span style="color:rgba(255,255,255,0.8);">วันที่:</span>
+                    <span style="color:#fff; font-weight:600;" id="success-order-date">--</span>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-large" onclick="location.href='index.html'" style="width:auto;">กลับไปหน้าแรก</button>
+        </div>
+    </div>
+
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="toast" id="toast"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="justify-content:center; text-align:center;">
+                <p>© 2026 Jubilee Cosmetics. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

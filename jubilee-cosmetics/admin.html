@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แผงควบคุมผู้ดูแลระบบ | Jubilee Cosmetics</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <script src="js/config.js" defer></script>
+    <script src="js/products.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/ui.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/admin.js" defer></script>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="header-top-left">
+                    <span class="promo-banner">🔐 โหมดผู้ดูแลระบบ</span>
+                </div>
+                <div class="header-top-right">
+                    <div class="language-switch">
+                        <button class="lang-btn active" data-lang="th" onclick="setLanguage('th')">TH</button>
+                        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-main">
+                <a href="index.html" class="logo">
+                    <svg viewBox="0 0 200 60" width="160" height="auto" aria-label="Jubilee Cosmetics Logo">
+                        <text x="50%" y="48%" dominant-baseline="middle" text-anchor="middle" font-family="serif" font-size="30" font-weight="bold" fill="#8a6d5b">Jubilee</text>
+                        <text x="50%" y="82%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="10" letter-spacing="4" fill="#8a6d5b">COSMETICS</text>
+                    </svg>
+                </a>
+
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html" class="nav-link">หน้าแรก</a></li>
+                        <li><a href="products.html" class="nav-link">สินค้าทั้งหมด</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-actions">
+                    <button class="icon-btn search-btn">🔍</button>
+                    <a href="cart.html" class="icon-btn cart-btn position-relative">
+                        🛒
+                        <span class="cart-badge" id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="section-padding bg-light">
+        <div class="container">
+            <div class="page-header">
+                <div>
+                    <h1>แผงควบคุมผู้ดูแลระบบ</h1>
+                    <p style="color:var(--text-light);">จัดการสินค้า คำสั่งซื้อ และลูกค้าของร้าน Jubilee Cosmetics</p>
+                </div>
+                <button class="btn btn-primary" onclick="showSection('add-product')" style="margin-left:auto;">➕ เพิ่มสินค้าใหม่</button>
+            </div>
+
+            <div class="admin-tabs" style="display:flex; gap:12px; margin-bottom:32px; overflow-x:auto; padding-bottom:12px; border-bottom:2px solid var(--border-color);">
+                <button class="tab-btn active" onclick="showSection('dashboard')">ภาพรวม</button>
+                <button class="tab-btn" onclick="showSection('products')">จัดการสินค้า</button>
+                <button class="tab-btn" onclick="showSection('orders')">คำสั่งซื้อ</button>
+                <button class="tab-btn" onclick="showSection('customers')">ลูกค้า</button>
+                <button class="tab-btn" onclick="showSection('settings')">ตั้งค่า</button>
+            </div>
+
+            <div id="section-dashboard" class="admin-section active">
+                <div class="admin-stats" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:24px; margin-bottom:40px;">
+                    <div class="stat-card" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow);">
+                        <div style="font-size:2.5rem; margin-bottom:12px;">📦</div>
+                        <h3 style="font-size:2rem; margin-bottom:6px; color:var(--primary-color);" id="stat-total-products">0</h3>
+                        <p style="color:var(--text-light); font-size:0.9rem;">สินค้าทั้งหมด</p>
+                    </div>
+                    <div class="stat-card" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow);">
+                        <div style="font-size:2.5rem; margin-bottom:12px;">🛒</div>
+                        <h3 style="font-size:2rem; margin-bottom:6px; color:var(--secondary-color);" id="stat-total-orders">0</h3>
+                        <p style="color:var(--text-light); font-size:0.9rem;">คำสั่งซื้อทั้งหมด</p>
+                    </div>
+                    <div class="stat-card" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow);">
+                        <div style="font-size:2.5rem; margin-bottom:12px;">💰</div>
+                        <h3 style="font-size:2rem; margin-bottom:6px; color:var(--accent-color);" id="stat-total-revenue">฿ 0</h3>
+                        <p style="color:var(--text-light); font-size:0.9rem;">ยอดขายรวม</p>
+                    </div>
+                    <div class="stat-card" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow);">
+                        <div style="font-size:2.5rem; margin-bottom:12px;">👥</div>
+                        <h3 style="font-size:2rem; margin-bottom:6px; color:var(--text-main);" id="stat-total-customers">0</h3>
+                        <p style="color:var(--text-light); font-size:0.9rem;">ลูกค้าทั้งหมด</p>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:24px;">
+                    <div class="admin-card" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow);">
+                        <h3 style="margin-bottom:20px; font-size:1.2rem; color:var(--text-main);">สินค้าล่าสุด</h3>
+                        <div id="recent-products-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+                    </div>
+                    <div class="admin-card" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow);">
+                        <h3 style="margin-bottom:20px; font-size:1.2rem; color:var(--text-main);">คำสั่งซื้อล่าสุด</h3>
+                        <div id="recent-orders-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="section-products" class="admin-section" style="display:none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:16px;">
+                    <h3>จัดการสินค้า</h3>
+                    <input type="text" id="admin-product-search" placeholder="ค้นหาสินค้า..." style="padding:10px 16px; border:1px solid var(--border-color); border-radius:12px; min-width:240px;">
+                </div>
+                <div class="product-grid" id="admin-product-grid"></div>
+            </div>
+
+            <div id="section-add-product" class="admin-section" style="display:none;">
+                <h3 style="margin-bottom:24px; font-size:1.5rem; color:var(--text-main);">เพิ่มสินค้าใหม่</h3>
+                <form id="add-product-form" style="max-width:600px; background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:36px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:20px;">
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">ชื่อสินค้า (ไทย)</label>
+                        <input type="text" id="prod-name-th" required placeholder="เช่น ต่างหูเพชร Jubilee" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">ชื่อสินค้า (อังกฤษ)</label>
+                        <input type="text" id="prod-name-en" required placeholder="e.g. Jubilee Diamond Earrings" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                    </div>
+                    <div class="form-row" style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                        <div class="form-group">
+                            <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">หมวดหมู่</label>
+                            <select id="prod-category" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem; background:#fff;">
+                                <option value="earrings">ต่างหู</option>
+                                <option value="necklaces">สร้อยคอ</option>
+                                <option value="bracelets">กำไลข้อมือ</option>
+                                <option value="rings">แหวน</option>
+                                <option value="makeup">เครื่องสำอาง</option>
+                                <option value="skincare">สกินแคร์</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">ราคาปกติ (บาท)</label>
+                            <input type="number" id="prod-price" required placeholder="0" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">ราคาลด (ถ้ามี)</label>
+                        <input type="number" id="prod-sale-price" placeholder="ราคาหลังลด" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">ส่วนลด (%)</label>
+                        <input type="number" id="prod-discount" placeholder="0" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">คำอธิบายสินค้า (ไทย)</label>
+                        <textarea id="prod-desc-th" rows="3" placeholder="คำอธิบายสินค้า..." style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">คำอธิบายสินค้า (อังกฤษ)</label>
+                        <textarea id="prod-desc-en" rows="3" placeholder="Product description..." style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem; resize:vertical;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main); font-size:0.95rem;">รูปภาพสินค้า (URL)</label>
+                        <input type="url" id="prod-image" required placeholder="https://example.com/image.jpg" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit; font-size:1rem;">
+                    </div>
+                    <div class="form-group" style="display:flex; align-items:center; gap:12px;">
+                        <input type="checkbox" id="prod-featured" style="width:18px; height:18px; cursor:pointer;">
+                        <label style="margin:0; font-weight:500; color:var(--text-main); font-size:0.95rem;">ตั้งเป็นสินค้าแนะนำ</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full" style="font-size:1rem;">บันทึกสินค้า</button>
+                </form>
+            </div>
+
+            <div id="section-orders" class="admin-section" style="display:none;">
+                <h3>จัดการคำสั่งซื้อ</h3>
+                <div class="admin-table-container" style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);">
+                    <table style="width:100%; border-collapse:collapse; font-size:0.95rem;">
+                        <thead>
+                            <tr style="background:var(--bg-light);">
+                                <th style="padding:16px; text-align:left; color:var(--text-light); font-weight:500;">หมายเลขคำสั่งซื้อ</th>
+                                <th style="padding:16px; text-align:left; color:var(--text-light); font-weight:500;">ลูกค้า</th>
+                                <th style="padding:16px; text-align:left; color:var(--text-light); font-weight:500;">วันที่</th>
+                                <th style="padding:16px; text-align:left; color:var(--text-light); font-weight:500;">ยอดรวม</th>
+                                <th style="padding:16px; text-align:left; color:var(--text-light); font-weight:500;">สถานะ</th>
+                                <th style="padding:16px; text-align:left; color:var(--text-light); font-weight:500;">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-orders-body"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="section-customers" class="admin-section" style="display:none;">
+                <h3>จัดการลูกค้า</h3>
+                <div style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:32px; box-shadow:var(--shadow); text-align:center;">
+                    <p style="color:var(--text-light);">ระบบจัดการลูกค้าจะพร้อมใช้งานเมื่อเชื่อมต่อกับฐานข้อมูลจริง</p>
+                    <button class="btn btn-outline" style="margin-top:16px;">ดูรายละเอียดลูกค้า</button>
+                </div>
+            </div>
+
+            <div id="section-settings" class="admin-section" style="display:none;">
+                <h3>การตั้งค่าร้านค้า</h3>
+                <div style="background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:32px; box-shadow:var(--shadow); max-width:500px;">
+                    <div style="margin-bottom:24px;">
+                        <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main);">ชื่อร้านค้า</label>
+                        <input type="text" value="Jubilee Cosmetics" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit;">
+                    </div>
+                    <div style="margin-bottom:24px;">
+                        <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main);">อีเมลติดต่อ</label>
+                        <input type="email" value="support@jubileecosmetics.com" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit;">
+                    </div>
+                    <div style="margin-bottom:24px;">
+                        <label style="display:block; margin-bottom:8px; font-weight:500; color:var(--text-main);">เกณฑ์จัดส่งฟรี (บาท)</label>
+                        <input type="number" value="2000" style="width:100%; padding:12px; border:1px solid var(--border-color); border-radius:10px; font-family:inherit;">
+                    </div>
+                    <button class="btn btn-primary btn-full" style="margin-top:20px;">บันทึกการตั้งค่า</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="toast" id="toast"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="justify-content:center; text-align:center;">
+                <p>© 2026 Jubilee Cosmetics Admin Panel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                setLanguage(btn.getAttribute('data-lang'));
+            });
+        });
+
+        window.showSection = function(sectionId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.admin-section').forEach(sec => sec.classList.remove('active'));
+            
+            const order = ['dashboard','products','orders','customers','settings'];
+            const idx = order.indexOf(sectionId);
+            if(idx >= 0) {
+                const btn = document.querySelector(`.tab-btn:nth-child(${idx + 1})`);
+                if(btn) btn.classList.add('active');
+            }
+            
+            const sec = document.getElementById('section-' + sectionId);
+            if(sec) sec.classList.add('active');
+        };
+
+        window.adminDB = {
+            get: function(key) {
+                const raw = localStorage.getItem('jubilee_admin_' + key);
+                return raw ? JSON.parse(raw) : [];
+            },
+            set: function(key, data) {
+                localStorage.setItem('jubilee_admin_' + key, JSON.stringify(data));
+            }
+        };
+
+        if (!adminDB.get('orders').length) {
+            adminDB.set('orders', [
+                { id: 'ORD-0001', customer: 'สมชาย ใจดี', date: '18 ต.ค. 2026', total: 15900, status: 'จัดส่งแล้ว' },
+                { id: 'ORD-0002', customer: 'สมหญิง รักสวย', date: '17 ต.ค. 2026', total: 26500, status: 'รอชำระเงิน' },
+                { id: 'ORD-0003', customer: 'วิจักร พัฒนศักดิ์', date: '16 ต.ค. 2026', total: 8500, status: 'ยืนยันคำสั่งซื้อ' }
+            ]);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initLanguage();
+            if(typeof cart !== 'undefined') cart.updateBadge();
+            renderDashboard();
+
+            const form = document.getElementById('add-product-form');
+            if(form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const product = {
+                        id: Date.now(),
+                        nameTh: document.getElementById('prod-name-th').value,
+                        nameEn: document.getElementById('prod-name-en').value,
+                        category: document.getElementById('prod-category').value,
+                        price: parseInt(document.getElementById('prod-price').value) || 0,
+                        salePrice: document.getElementById('prod-sale-price').value ? parseInt(document.getElementById('prod-sale-price').value) : null,
+                        discount: document.getElementById('prod-discount').value ? parseInt(document.getElementById('prod-discount').value) : null,
+                        descTh: document.getElementById('prod-desc-th').value,
+                        descEn: document.getElementById('prod-desc-en').value,
+                        image: document.getElementById('prod-image').value,
+                        featured: document.getElementById('prod-featured').checked,
+                        inStock: true,
+                        rating: 0,
+                        reviews: 0
+                    };
+                    
+                    const allProducts = adminDB.get('products');
+                    allProducts.push(product);
+                    adminDB.set('products', allProducts);
+                    
+                    form.reset();
+                    showSection('products');
+                    renderProductsAdmin();
+                    renderDashboard();
+                    typeof cart !== 'undefined' && cart.showToast('เพิ่มสินค้าใหม่เรียบร้อยแล้ว');
+                });
+            }
+
+            const searchInput = document.getElementById('admin-product-search');
+            if(searchInput) {
+                searchInput.addEventListener('input', renderProductsAdmin);
+            }
+        });
+
+        function renderDashboard() {
+            const products = adminDB.get('products');
+            const orders = adminDB.get('orders');
+            
+            document.getElementById('stat-total-products').textContent = products.length;
+            document.getElementById('stat-total-orders').textContent = orders.length;
+            const revenue = orders.reduce((sum, o) => sum + o.total, 0);
+            document.getElementById('stat-total-revenue').textContent = '฿ ' + revenue.toLocaleString();
+            document.getElementById('stat-total-customers').textContent = [...new Set(orders.map(o => o.customer))].length;
+
+            const recentProdList = document.getElementById('recent-products-list');
+            if(recentProdList && products.length) {
+                recentProdList.innerHTML = products.slice(-5).reverse().map(p => `
+                    <div style="display:flex; gap:12px; align-items:center; padding:12px; border:1px solid var(--border-color); border-radius:10px; background:#fff;">
+                        <img src="${p.image || 'assets/placeholder.svg'}" style="width:50px; height:50px; object-fit:cover; border-radius:8px;" onerror="this.src='assets/placeholder.svg'">
+                        <div style="flex:1;">
+                            <div style="font-weight:600; font-size:0.95rem; color:var(--text-main);">${CONFIG.language === 'th' ? p.nameTh : p.nameEn}</div>
+                            <div style="font-size:0.85rem; color:var(--text-light);">฿ ${(p.salePrice || p.price).toLocaleString()}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const recentOrdList = document.getElementById('recent-orders-list');
+            if(recentOrdList && orders.length) {
+                recentOrdList.innerHTML = orders.slice(-5).reverse().map(o => `
+                    <div style="display:flex; gap:12px; align-items:center; padding:12px; border:1px solid var(--border-color); border-radius:10px; background:#fff;">
+                        <div style="font-weight:600; font-size:0.9rem; color:var(--primary-color);">${o.id}</div>
+                        <div style="flex:1; font-size:0.9rem; color:var(--text-main);">${o.customer}</div>
+                        <div style="font-size:0.85rem; color:var(--text-light);">฿ ${o.total.toLocaleString()}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function renderProductsAdmin() {
+            const grid = document.getElementById('admin-product-grid');
+            if(!grid) return;
+            
+            const products = adminDB.get('products');
+            const search = document.getElementById('admin-product-search')?.value.toLowerCase() || '';
+            
+            const filtered = products.filter(p => 
+                (CONFIG.language === 'th' ? p.nameTh : p.nameEn).toLowerCase().includes(search) ||
+                p.category.toLowerCase().includes(search)
+            );
+
+            if(filtered.length === 0) {
+                grid.innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-light);">ไม่พบสินค้า</div>';
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => `
+                <div class="product-card" style="height:auto; min-height:340px;">
+                    <img src="${p.image || 'assets/placeholder.svg'}" alt="${p.nameTh}" onerror="this.src='assets/placeholder.svg'">
+                    ${p.discount ? `<span class="badge">-${p.discount}%</span>` : ''}
+                    <div class="card-overlay" style="background:#fff; padding:16px;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                            <h3 style="font-size:1rem; margin:0; line-height:1.3; color:var(--text-main);">${CONFIG.language === 'th' ? p.nameTh : p.nameEn}</h3>
+                            <button style="background:none; border:none; color:var(--accent-color); cursor:pointer; font-size:1.2rem;" onclick="deleteProduct(${p.id})">🗑️</button>
+                        </div>
+                        <div style="margin-bottom:10px;">
+                            <span style="font-weight:700; color:var(--primary-color); font-size:1rem;">฿ ${(p.salePrice || p.price).toLocaleString()}</span>
+                            ${p.salePrice ? `<span style="color:var(--text-light); text-decoration:line-through; font-size:0.85rem; margin-left:6px;">฿ ${p.price.toLocaleString()}</span>` : ''}
+                        </div>
+                        <div style="font-size:0.85rem; color:var(--text-light); margin-bottom:12px;">หมวด: ${getCategoryName(p.category)}</div>
+                        <button class="btn btn-outline" style="width:100%; padding:10px; font-size:0.85rem;" onclick="editProduct(${p.id})">แก้ไข</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCategoryName(cat) {
+            const map = { earrings:'ต่างหู', necklaces:'สร้อยคอ', bracelets:'กำไลข้อมือ', rings:'แหวน', makeup:'เครื่องสำอาง', skincare:'สกินแคร์' };
+            return map[cat] || cat;
+        }
+
+        function deleteProduct(id) {
+            if(!confirm('ยืนยันลบสินค้านี้หรือไม่?')) return;
+            const products = adminDB.get('products').filter(p => p.id !== id);
+            adminDB.set('products', products);
+            renderProductsAdmin();
+            renderDashboard();
+            typeof cart !== 'undefined' && cart.showToast('ลบสินค้าเรียบร้อยแล้ว');
+        }
+
+        function editProduct(id) {
+            typeof cart !== 'undefined' && cart.showToast('ฟีเจอร์แก้ไขสินค้าจะพร้อมใช้งานในเวอร์ชันถัดไป');
+        }
+
+        const ordersBody = document.getElementById('admin-orders-body');
+        if(ordersBody) {
+            const orders = adminDB.get('orders');
+            ordersBody.innerHTML = orders.map(o => `
+                <tr style="border-bottom:1px solid var(--border-color);">
+                    <td style="padding:16px; font-weight:600; color:var(--primary-color);">${o.id}</td>
+                    <td style="padding:16px; color:var(--text-main);">${o.customer}</td>
+                    <td style="padding:16px; color:var(--text-light);">${o.date}</td>
+                    <td style="padding:16px; font-weight:600; color:var(--text-main);">฿ ${o.total.toLocaleString()}</td>
+                    <td style="padding:16px;">
+                        <span style="background:rgba(122, 158, 127, 0.1); color:#7a9e7f; padding:4px 10px; border-radius:12px; font-size:0.85rem; font-weight:500;">${o.status}</span>
+                    </td>
+                    <td style="padding:16px;">
+                        <button style="background:none; border:none; color:var(--text-light); cursor:pointer; font-size:1.1rem;">👁️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
